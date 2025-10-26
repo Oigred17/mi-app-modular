@@ -1,0 +1,59 @@
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.welcome-console {
+  background-color: #1e1e1e;
+  color: #00ff41;
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  padding: 2rem;
+  border-radius: 8px;
+  margin: 2rem auto;
+  max-width: 920px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border: 1px solid #333;
+}
+
+.console-content {
+  min-height: 150px; /* Give it some space */
+}
+
+.console-line {
+  margin: 0 0 0.5rem 0;
+  line-height: 1.5;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Wrap long lines */
+}
+
+.console-prompt {
+  margin-right: 0.5rem;
+  color: #888;
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.2rem;
+  background-color: #00ff41;
+  animation: blink 1s step-end infinite;
+  margin-left: 5px;
+}
+
+.welcome-cta {
+  color: #00ff41;
+  text-decoration: none;
+  background-color: transparent;
+  border: 1px solid #00ff41;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.welcome-cta:hover {
+  background-color: #00ff41;
+  color: #1e1e1e;
+}

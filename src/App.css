@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Dark Mode styles */
+.App.dark .container {
+  color: var(--text-color-dark);
+}
+
+.App.dark a {
+  color: var(--primary-color);
+}
