@@ -3,8 +3,6 @@ import './TodoList.css';
 import IconTrash from '../Icons/IconTrash'; // Importar el nuevo ícono
 import { db } from '../../firebaseConfig'; // <-- Importa nuestra config
 import { collection, query, orderBy, onSnapshot, addDoc, doc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore"; // <-- Importa funciones de Firestore
-import './TodoList.css';
-import TodoItem from '../TodoItem/TodoItem';
 
 const TodoList = () => {
   // El estado 'tasks' ahora empieza vacío
