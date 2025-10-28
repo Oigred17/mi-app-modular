@@ -1,65 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './TodoList.css';
 import IconTrash from '../Icons/IconTrash'; // Importar el nuevo ícono
 import { db } from '../../firebaseConfig'; // <-- Importa nuestra config
 import { collection, query, orderBy, onSnapshot, addDoc, doc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore"; // <-- Importa funciones de Firestore
 
 const TodoList = () => {
-  // El estado 'tasks' ahora empieza vacío
   const [tasks, setTasks] = useState([]); 
   const [inputValue, setInputValue] = useState('');
 
   // --- LEER TAREAS (GET) ---
-  // useEffect se ejecutará cuando el componente se monte
   useEffect(() => {
-    // 1. Creamos una referencia a nuestra colección "tasks" en Firestore
     const collectionRef = collection(db, "tasks");
-
-    // 2. Creamos una consulta (query) para ordenar las tareas por fecha
     const q = query(collectionRef, orderBy("createdAt", "asc"));
 
-    // 3. onSnapshot es el ¡ESCUCHADOR EN TIEMPO REAL!
-    // Se dispara una vez al inicio y luego CADA VEZ que los datos cambian
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const newTasks = [];
       querySnapshot.forEach((doc) => {
         newTasks.push({ 
           ...doc.data(), 
-          id: doc.id // El ID del documento es importante
+          id: doc.id
         });
       });
-      setTasks(newTasks); // Actualizamos nuestro estado de React
+      setTasks(newTasks);
     });
 
-    // Esta función de limpieza se ejecuta cuando el componente se "desmonta"
-    // Evita fugas de memoria
     return () => unsubscribe();
-
   }, []);
 
-
-  const handleAddTask = (e) => {
+  const handleAddTask = async (e) => {
     e.preventDefault();
     if (inputValue.trim() === '') return;
 
-    const newTask = {
-      id: Date.now(),
+    await addDoc(collection(db, "tasks"), {
       text: inputValue,
-      completed: false
-    };
+      completed: false,
+      createdAt: serverTimestamp()
+    });
 
-    setTasks([...tasks, newTask]);
     setInputValue('');
   };
 
-  const toggleTaskCompletion = (taskId) => {
-    setTasks(tasks.map(task =>
-      task.id === taskId ? { ...task, completed: !task.completed } : task
-    ));
+  const toggleTaskCompletion = async (task) => {
+    const taskRef = doc(db, "tasks", task.id);
+    await updateDoc(taskRef, {
+      completed: !task.completed
+    });
   };
 
-  const deleteTask = (taskId) => {
-    setTasks(tasks.filter(task => task.id !== taskId));
+  const deleteTask = async (taskId) => {
+    const taskRef = doc(db, "tasks", taskId);
+    await deleteDoc(taskRef);
   };
 
   return (
@@ -82,7 +72,7 @@ const TodoList = () => {
             <input
               type="checkbox"
               checked={task.completed}
-              onChange={() => toggleTaskCompletion(task.id)}
+              onChange={() => toggleTaskCompletion(task)}
             />
             <span>{task.text}</span>
             <button 
@@ -97,42 +87,5 @@ const TodoList = () => {
     </div>
   );
 };
-
-
-const handleAddTask = async (e) => { // La hacemos 'async'
-  e.preventDefault();
-  if (inputValue.trim() === '') return;
-
-  // ¡En lugar de solo 'setTasks', escribimos en la BD!
-  await addDoc(collection(db, "tasks"), {
-    text: inputValue,
-    isComplete: false,
-    createdAt: serverTimestamp() // Marca de tiempo de Firebase
-  });
-
-  setInputValue('');
-  // NOTA: No necesitamos 'setTasks' aquí.
-  // ¡'onSnapshot' detectará el nuevo documento y actualizará el estado por nosotros!
-};
-
-const handleToggleComplete = async (task) => { // Pasamos el objeto 'task' entero
-  const taskRef = doc(db, "tasks", task.id);
-
-  // 2. Actualizamos ese documento
-  await updateDoc(taskRef, {
-    isComplete: !task.isComplete // Invertimos el valor
-  });
-  // De nuevo, ¡onSnapshot se encarga de actualizar la UI!
-};
-
-const handleDeleteTask = async (idToDelete) => {
-  // 1. Creamos una referencia al documento
-  const taskRef = doc(db, "tasks", idToDelete);
-
-  // 2. Borramos el documento
-  await deleteDoc(taskRef);
-  // ¡onSnapshot se encarga del resto!
-};
-
 
 export default TodoList;
