@@ -8,6 +8,7 @@ import Layout from './components/Layout/Layout';
 import Home from './components/Home/Home';
 import TodoList from './components/TodoList/TodoList';
 import UserDirectory from './components/UserDirectory/UserDirectory';
+import TaskHistory from './components/TodoList/TaskHistory'; // Importamos el nuevo componente
 import Error404 from './components/Error404/Error404';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           {/* Rutas Hijas */}
           <Route index element={<Home />} />
           <Route path="tareas" element={<TodoList />} />
+          <Route path="historial" element={<TaskHistory />} />
           <Route path="directorio" element={<UserDirectory />} />
 
           {/* Ruta "Catch-all" para 404 (No encontrado) */}
@@ -36,4 +38,3 @@ function App() {
 }
 
 export default App;
-

@@ -158,3 +158,22 @@ li span {
 .dark .delete-btn:hover {
   background-color: rgba(255, 138, 138, 0.2);
 }
+
+.header-actions {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
+.history-link-btn {
+  background-color: #6c757d;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.history-link-btn:hover {
+  background-color: #5a6268;
+}
