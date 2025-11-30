@@ -15,13 +15,13 @@ describe('Header', () => {
         );
     };
 
-    test('renders correctly', () => {
+    test('se renderiza correctamente', () => {
         renderWithProviders(<Header />);
         const header = screen.getByRole('banner');
         expect(header).toBeInTheDocument();
     });
 
-    test('renders navigation with correct links', () => {
+    test('renderiza la navegación con los enlaces correctos', () => {
         renderWithProviders(<Header />);
 
         const inicioLink = screen.getByRole('link', { name: /inicio/i });
@@ -38,14 +38,14 @@ describe('Header', () => {
         expect(directorioLink).toHaveAttribute('href', '/directorio');
     });
 
-    test('renders ThemeSwitcher button', () => {
+    test('renderiza el botón ThemeSwitcher', () => {
         renderWithProviders(<Header />);
         const themeSwitcherButton = screen.getByRole('button');
         expect(themeSwitcherButton).toBeInTheDocument();
         expect(themeSwitcherButton).toHaveClass('theme-switcher-btn');
     });
 
-    test('renders logo (IconApp)', () => {
+    test('renderiza el logo (IconApp)', () => {
         const { container } = renderWithProviders(<Header />);
         const logo = container.querySelector('.logo');
         expect(logo).toBeInTheDocument();
@@ -54,7 +54,7 @@ describe('Header', () => {
         expect(svg).toBeInTheDocument();
     });
 
-    test('has correct header structure', () => {
+    test('tiene la estructura de encabezado correcta', () => {
         const { container } = renderWithProviders(<Header />);
         const header = container.querySelector('.app-header');
         expect(header).toBeInTheDocument();

@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import IconMoon from './IconMoon';
 
 describe('IconMoon', () => {
-    test('renders correctly with default props', () => {
+    test('se renderiza correctamente con props por defecto', () => {
         const { container } = render(<IconMoon />);
         const svg = container.querySelector('svg');
         expect(svg).toBeInTheDocument();
@@ -11,20 +11,20 @@ describe('IconMoon', () => {
         expect(svg).toHaveAttribute('height', '24');
     });
 
-    test('renders with custom size', () => {
+    test('se renderiza con tamaño personalizado', () => {
         const { container } = render(<IconMoon size={32} />);
         const svg = container.querySelector('svg');
         expect(svg).toHaveAttribute('width', '32');
         expect(svg).toHaveAttribute('height', '32');
     });
 
-    test('has correct viewBox', () => {
+    test('tiene viewBox correcto', () => {
         const { container } = render(<IconMoon />);
         const svg = container.querySelector('svg');
         expect(svg).toHaveAttribute('viewBox', '0 0 24 24');
     });
 
-    test('has moon path element', () => {
+    test('tiene elemento path de luna', () => {
         const { container } = render(<IconMoon />);
         const path = container.querySelector('path');
         expect(path).toBeInTheDocument();

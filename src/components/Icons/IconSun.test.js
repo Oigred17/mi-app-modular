@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import IconSun from './IconSun';
 
 describe('IconSun', () => {
-    test('renders correctly with default props', () => {
+    test('se renderiza correctamente con props por defecto', () => {
         const { container } = render(<IconSun />);
         const svg = container.querySelector('svg');
         expect(svg).toBeInTheDocument();
@@ -11,20 +11,20 @@ describe('IconSun', () => {
         expect(svg).toHaveAttribute('height', '24');
     });
 
-    test('renders with custom size', () => {
+    test('se renderiza con tamaño personalizado', () => {
         const { container } = render(<IconSun size={32} />);
         const svg = container.querySelector('svg');
         expect(svg).toHaveAttribute('width', '32');
         expect(svg).toHaveAttribute('height', '32');
     });
 
-    test('has correct viewBox', () => {
+    test('tiene viewBox correcto', () => {
         const { container } = render(<IconSun />);
         const svg = container.querySelector('svg');
         expect(svg).toHaveAttribute('viewBox', '0 0 24 24');
     });
 
-    test('has circle element for sun center', () => {
+    test('tiene elemento círculo para el centro del sol', () => {
         const { container } = render(<IconSun />);
         const circle = container.querySelector('circle');
         expect(circle).toBeInTheDocument();
@@ -33,7 +33,7 @@ describe('IconSun', () => {
         expect(circle).toHaveAttribute('r', '5');
     });
 
-    test('has multiple line elements for sun rays', () => {
+    test('tiene múltiples elementos de línea para los rayos del sol', () => {
         const { container } = render(<IconSun />);
         const lines = container.querySelectorAll('line');
         expect(lines.length).toBe(8); // 8 sun rays

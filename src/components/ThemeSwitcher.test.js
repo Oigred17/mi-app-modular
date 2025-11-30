@@ -18,20 +18,20 @@ describe('ThemeSwitcher', () => {
         mockToggleTheme.mockClear();
     });
 
-    test('renders correctly with light theme', () => {
+    test('se renderiza correctamente con el tema claro', () => {
         renderWithThemeContext('light');
         const button = screen.getByRole('button');
         expect(button).toBeInTheDocument();
         expect(button).toHaveClass('theme-switcher-btn');
     });
 
-    test('renders correctly with dark theme', () => {
+    test('se renderiza correctamente con el tema oscuro', () => {
         renderWithThemeContext('dark');
         const button = screen.getByRole('button');
         expect(button).toBeInTheDocument();
     });
 
-    test('shows IconMoon when theme is light', () => {
+    test('muestra IconMoon cuando el tema es claro', () => {
         const { container } = renderWithThemeContext('light');
         const svg = container.querySelector('svg');
         expect(svg).toBeInTheDocument();
@@ -40,7 +40,7 @@ describe('ThemeSwitcher', () => {
         expect(path).toBeInTheDocument();
     });
 
-    test('shows IconSun when theme is dark', () => {
+    test('muestra IconSun cuando el tema es oscuro', () => {
         const { container } = renderWithThemeContext('dark');
         const svg = container.querySelector('svg');
         expect(svg).toBeInTheDocument();
@@ -49,7 +49,7 @@ describe('ThemeSwitcher', () => {
         expect(circle).toBeInTheDocument();
     });
 
-    test('calls toggleTheme when button is clicked', () => {
+    test('llama a toggleTheme cuando se hace clic en el botón', () => {
         renderWithThemeContext('light');
         const button = screen.getByRole('button');
 
@@ -58,7 +58,7 @@ describe('ThemeSwitcher', () => {
         expect(mockToggleTheme).toHaveBeenCalledTimes(1);
     });
 
-    test('calls toggleTheme multiple times on multiple clicks', () => {
+    test('llama a toggleTheme múltiples veces en múltiples clics', () => {
         renderWithThemeContext('light');
         const button = screen.getByRole('button');
 

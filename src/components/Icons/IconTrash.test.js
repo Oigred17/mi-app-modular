@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import IconTrash from './IconTrash';
 
 describe('IconTrash', () => {
-    test('renders correctly with default props', () => {
+    test('se renderiza correctamente con props por defecto', () => {
         const { container } = render(<IconTrash />);
         const svg = container.querySelector('svg');
         expect(svg).toBeInTheDocument();
@@ -11,20 +11,20 @@ describe('IconTrash', () => {
         expect(svg).toHaveAttribute('height', '24');
     });
 
-    test('renders with custom size', () => {
+    test('se renderiza con tamaño personalizado', () => {
         const { container } = render(<IconTrash size={20} />);
         const svg = container.querySelector('svg');
         expect(svg).toHaveAttribute('width', '20');
         expect(svg).toHaveAttribute('height', '20');
     });
 
-    test('has correct viewBox', () => {
+    test('tiene viewBox correcto', () => {
         const { container } = render(<IconTrash />);
         const svg = container.querySelector('svg');
         expect(svg).toHaveAttribute('viewBox', '0 0 24 24');
     });
 
-    test('has trash can icon elements', () => {
+    test('tiene elementos de icono de papelera', () => {
         const { container } = render(<IconTrash />);
         const polyline = container.querySelector('polyline');
         const paths = container.querySelectorAll('path');

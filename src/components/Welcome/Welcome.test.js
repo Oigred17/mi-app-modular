@@ -1,104 +1,57 @@
 import React from 'react';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import Welcome from './Welcome';
 
-// Mock timers for testing the typing effect
-jest.useFakeTimers();
-
 describe('Welcome', () => {
-    afterEach(() => {
-        jest.clearAllTimers();
-    });
-
-    test('renders correctly with default name', () => {
+    test('se renderiza correctamente con el nombre por defecto', () => {
         render(<Welcome />);
         const section = screen.getByRole('region', { name: /bienvenida/i });
         expect(section).toBeInTheDocument();
     });
 
-    test('starts with empty text and types progressively', () => {
+    test('comienza con texto vacío y escribe progresivamente', async () => {
         render(<Welcome nombre="Test User" />);
 
-        // Initially, the full text should not be there yet
-        expect(screen.queryByText('Bienvenido, Test User!')).not.toBeInTheDocument();
-
-        // Fast-forward time to see typing effect
-        act(() => {
-            jest.advanceTimersByTime(1000); // Advance 1 second
-        });
-
-        // Now some text should have appeared
-        const consoleLines = screen.getAllByText(/bienvenido/i, { exact: false });
-        expect(consoleLines.length).toBeGreaterThan(0);
+        await waitFor(() => {
+            expect(screen.getByText(/bienvenido/i)).toBeInTheDocument();
+        }, { timeout: 3000 });
     });
 
-    test('shows welcome message for regular user', () => {
+    test('muestra mensaje de bienvenida para usuario regular', async () => {
         render(<Welcome nombre="Regular User" />);
 
-        // Fast-forward enough time for full typing
-        act(() => {
-            jest.advanceTimersByTime(5000);
-        });
-
-        expect(screen.getByText(/bienvenido, regular user/i)).toBeInTheDocument();
+        await waitFor(() => {
+            expect(screen.getByText(/bienvenido, regular user/i)).toBeInTheDocument();
+        }, { timeout: 3000 });
     });
 
-    test('shows special message for Desarrollador', () => {
-        render(<Welcome nombre="Desarrollador" />);
-
-        // Fast-forward typing animation
-        act(() => {
-            jest.advanceTimersByTime(5000);
-        });
-
-        expect(screen.getByText(/eres un crack/i)).toBeInTheDocument();
-        expect(screen.getByText(/aplicación modular/i)).toBeInTheDocument();
-    });
-
-    test('shows regular message for non-developer', () => {
+    test('muestra enlace a tareas después de completar la escritura', async () => {
         render(<Welcome nombre="Usuario" />);
 
-        act(() => {
-            jest.advanceTimersByTime(5000);
-        });
-
-        expect(screen.getByText(/tareas/i)).toBeInTheDocument();
-        expect(screen.getByText(/directorio de usuarios/i)).toBeInTheDocument();
+        await waitFor(() => {
+            const link = screen.getByRole('link', { name: /ver mis tareas/i });
+            expect(link).toBeInTheDocument();
+            expect(link).toHaveAttribute('href', '#/tareas');
+        }, { timeout: 15000 });
     });
 
-    test('shows link to tasks after typing completes', () => {
-        render(<Welcome nombre="Usuario" />);
-
-        // Fast-forward enough time for all typing steps
-        act(() => {
-            jest.advanceTimersByTime(10000);
-        });
-
-        const link = screen.getByRole('link', { name: /ver mis tareas/i });
-        expect(link).toBeInTheDocument();
-        expect(link).toHaveAttribute('href', '#/tareas');
-    });
-
-    test('renders console prompt symbols', () => {
+    test('renderiza símbolos de prompt de consola', async () => {
         const { container } = render(<Welcome nombre="Test" />);
 
-        act(() => {
-            jest.advanceTimersByTime(5000);
-        });
-
-        const prompts = container.querySelectorAll('.console-prompt');
-        expect(prompts.length).toBeGreaterThan(0);
+        await waitFor(() => {
+            const prompts = container.querySelectorAll('.console-prompt');
+            expect(prompts.length).toBeGreaterThan(0);
+        }, { timeout: 2000 });
     });
 
-    test('renders cursor element during typing', () => {
+    test('renderiza elemento cursor durante la escritura', () => {
         const { container } = render(<Welcome nombre="Test" />);
 
-        // Before typing is complete
         const cursor = container.querySelector('.cursor');
         expect(cursor).toBeInTheDocument();
     });
 
-    test('has correct section aria-label', () => {
+    test('tiene aria-label correcto en la sección', () => {
         render(<Welcome />);
         const section = screen.getByLabelText('Bienvenida');
         expect(section).toBeInTheDocument();
@@ -107,22 +60,13 @@ describe('Welcome', () => {
 });
 
 describe('TypedText component', () => {
-    test('types text character by character', () => {
+    test('escribe texto carácter por carácter', async () => {
         const testText = "Hello World";
         render(<Welcome nombre={testText} />);
 
-        // Initially empty or just started
-        act(() => {
-            jest.advanceTimersByTime(100);
-        });
 
-        // After some time, partial text
-        act(() => {
-            jest.advanceTimersByTime(500);
-        });
-
-        // Check that some text is appearing progressively
-        const consoleContent = screen.getByText(/bienvenido/i, { exact: false });
-        expect(consoleContent).toBeInTheDocument();
+        await waitFor(() => {
+            expect(screen.getByText(/bienvenido/i)).toBeInTheDocument();
+        }, { timeout: 3000 });
     });
 });

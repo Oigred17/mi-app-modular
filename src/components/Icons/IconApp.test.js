@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import IconApp from './IconApp';
 
 describe('IconApp', () => {
-    test('renders correctly with default props', () => {
+    test('se renderiza correctamente con props por defecto', () => {
         const { container } = render(<IconApp />);
         const svg = container.querySelector('svg');
         expect(svg).toBeInTheDocument();
@@ -11,27 +11,27 @@ describe('IconApp', () => {
         expect(svg).toHaveAttribute('height', '36');
     });
 
-    test('renders with custom size', () => {
+    test('se renderiza con tamaño personalizado', () => {
         const { container } = render(<IconApp size={48} />);
         const svg = container.querySelector('svg');
         expect(svg).toHaveAttribute('width', '48');
         expect(svg).toHaveAttribute('height', '48');
     });
 
-    test('renders with custom title', () => {
+    test('se renderiza con título personalizado', () => {
         const customTitle = 'Custom App Title';
         const { container } = render(<IconApp title={customTitle} />);
         const svg = container.querySelector('svg');
         expect(svg).toHaveAttribute('aria-label', customTitle);
     });
 
-    test('has correct viewBox', () => {
+    test('tiene viewBox correcto', () => {
         const { container } = render(<IconApp />);
         const svg = container.querySelector('svg');
         expect(svg).toHaveAttribute('viewBox', '0 0 24 24');
     });
 
-    test('has role="img" for accessibility', () => {
+    test('tiene role="img" para accesibilidad', () => {
         const { container } = render(<IconApp />);
         const svg = container.querySelector('svg');
         expect(svg).toHaveAttribute('role', 'img');

@@ -9,7 +9,6 @@ const TypedText = ({ text, onFinished, speed = 50 }) => {
             setTyped((prev) => {
                 if (prev.length === text.length) {
                     clearInterval(interval);
-                    if (onFinished) onFinished();
                     return prev;
                 }
                 return text.substring(0, prev.length + 1);
@@ -17,7 +16,14 @@ const TypedText = ({ text, onFinished, speed = 50 }) => {
         }, speed);
 
         return () => clearInterval(interval);
-    }, [text, onFinished, speed]);
+    }, [text, speed]);
+
+    // Call onFinished in a separate effect when typing is complete
+    useEffect(() => {
+        if (typed.length === text.length && typed.length > 0 && onFinished) {
+            onFinished();
+        }
+    }, [typed, text, onFinished]);
 
     const isFinished = typed.length === text.length;
 

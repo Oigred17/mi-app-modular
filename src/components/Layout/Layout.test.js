@@ -18,26 +18,26 @@ describe('Layout', () => {
         );
     };
 
-    test('renders Header component', () => {
+    test('renderiza el componente Header', () => {
         renderWithRouter();
         // Header should contain navigation links
         const navigation = screen.getByRole('navigation');
         expect(navigation).toBeInTheDocument();
     });
 
-    test('renders main element', () => {
+    test('renderiza el elemento main', () => {
         renderWithRouter();
         const main = screen.getByRole('main');
         expect(main).toBeInTheDocument();
     });
 
-    test('renders Outlet content (child routes)', () => {
+    test('renderiza el contenido de Outlet (rutas hijas)', () => {
         renderWithRouter();
         const testContent = screen.getByText('Test Content');
         expect(testContent).toBeInTheDocument();
     });
 
-    test('has correct structure with Header and main', () => {
+    test('tiene la estructura correcta con Header y main', () => {
         const { container } = renderWithRouter();
         const header = container.querySelector('.app-header');
         const main = container.querySelector('main');

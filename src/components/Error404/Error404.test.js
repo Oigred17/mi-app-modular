@@ -8,28 +8,28 @@ describe('Error404', () => {
         return render(<BrowserRouter>{component}</BrowserRouter>);
     };
 
-    test('renders 404 message', () => {
+    test('renderiza mensaje 404', () => {
         renderWithRouter(<Error404 />);
         const errorElement = screen.getByText('404');
         expect(errorElement).toBeInTheDocument();
         expect(errorElement).toHaveClass('glitch');
     });
 
-    test('renders "Página no encontrada" message', () => {
+    test('renderiza mensaje "Página no encontrada"', () => {
         renderWithRouter(<Error404 />);
         const message = screen.getByText(/página no encontrada/i);
         expect(message).toBeInTheDocument();
         expect(message).toHaveClass('error-message');
     });
 
-    test('renders link to go back home', () => {
+    test('renderiza enlace para volver al inicio', () => {
         renderWithRouter(<Error404 />);
         const homeLink = screen.getByRole('link', { name: /volver al inicio/i });
         expect(homeLink).toBeInTheDocument();
         expect(homeLink).toHaveAttribute('href', '/');
     });
 
-    test('has correct container class', () => {
+    test('tiene la clase de contenedor correcta', () => {
         const { container } = renderWithRouter(<Error404 />);
         const errorContainer = container.querySelector('.error-container');
         expect(errorContainer).toBeInTheDocument();
