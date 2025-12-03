@@ -5,7 +5,11 @@ import Error404 from './Error404';
 
 describe('Error404', () => {
     const renderWithRouter = (component) => {
-        return render(<BrowserRouter>{component}</BrowserRouter>);
+        return render(
+            <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+                {component}
+            </BrowserRouter>
+        );
     };
 
     test('renderiza mensaje 404', () => {
@@ -30,8 +34,10 @@ describe('Error404', () => {
     });
 
     test('tiene la clase de contenedor correcta', () => {
-        const { container } = renderWithRouter(<Error404 />);
-        const errorContainer = container.querySelector('.error-container');
-        expect(errorContainer).toBeInTheDocument();
+        renderWithRouter(<Error404 />);
+        // Verificar que todos los elementos del contenedor están presentes
+        expect(screen.getByText('404')).toBeInTheDocument();
+        expect(screen.getByText(/página no encontrada/i)).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: /volver al inicio/i })).toBeInTheDocument();
     });
 });

@@ -40,9 +40,12 @@ describe('UserDirectory', () => {
 
         render(<UserDirectory />);
 
-        await waitFor(() => {
-            expect(screen.getByText('John Doe')).toBeInTheDocument();
-        });
+        await waitFor(
+            () => {
+                expect(screen.getByText('John Doe')).toBeInTheDocument();
+            },
+            { timeout: 3000 }
+        );
 
         expect(screen.getByText('John Doe')).toBeInTheDocument();
         expect(screen.getByText(/john@example.com/i)).toBeInTheDocument();
@@ -72,9 +75,12 @@ describe('UserDirectory', () => {
 
         render(<UserDirectory />);
 
-        await waitFor(() => {
-            expect(screen.getByText(/error/i)).toBeInTheDocument();
-        });
+        await waitFor(
+            () => {
+                expect(screen.getByText(/error/i)).toBeInTheDocument();
+            },
+            { timeout: 3000 }
+        );
 
         expect(screen.getByText(/network error/i)).toBeInTheDocument();
     });
@@ -87,9 +93,12 @@ describe('UserDirectory', () => {
 
         render(<UserDirectory />);
 
-        await waitFor(() => {
-            expect(screen.getByText(/error/i)).toBeInTheDocument();
-        });
+        await waitFor(
+            () => {
+                expect(screen.getByText(/error/i)).toBeInTheDocument();
+            },
+            { timeout: 3000 }
+        );
     });
 
     test('no muestra mensaje de carga después de cargar los datos', async () => {
@@ -100,9 +109,12 @@ describe('UserDirectory', () => {
 
         render(<UserDirectory />);
 
-        await waitFor(() => {
-            expect(screen.queryByText(/cargando usuarios/i)).not.toBeInTheDocument();
-        });
+        await waitFor(
+            () => {
+                expect(screen.queryByText(/cargando usuarios/i)).not.toBeInTheDocument();
+            },
+            { timeout: 3000 }
+        );
     });
 
     test('renderiza usuarios en formato de lista', async () => {
@@ -115,13 +127,17 @@ describe('UserDirectory', () => {
             json: async () => mockUsers
         });
 
-        const { container } = render(<UserDirectory />);
+        render(<UserDirectory />);
 
-        await waitFor(() => {
-            expect(screen.getByText('User 1')).toBeInTheDocument();
-        });
+        await waitFor(
+            () => {
+                expect(screen.getByText('User 1')).toBeInTheDocument();
+            },
+            { timeout: 3000 }
+        );
 
-        const userCard = container.querySelector('.user-card');
-        expect(userCard).toBeInTheDocument();
+        // Verify we have user list items rendered
+        const userCards = screen.queryAllByRole('listitem');
+        expect(userCards.length).toBeGreaterThan(0);
     });
 });

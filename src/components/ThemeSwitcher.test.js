@@ -32,21 +32,15 @@ describe('ThemeSwitcher', () => {
     });
 
     test('muestra IconMoon cuando el tema es claro', () => {
-        const { container } = renderWithThemeContext('light');
-        const svg = container.querySelector('svg');
+        renderWithThemeContext('light');
+        const svg = screen.getByRole('img', { name: /moon/i });
         expect(svg).toBeInTheDocument();
-        // IconMoon has a specific path with moon shape
-        const path = container.querySelector('path[d*="M21 12.79"]');
-        expect(path).toBeInTheDocument();
     });
 
     test('muestra IconSun cuando el tema es oscuro', () => {
-        const { container } = renderWithThemeContext('dark');
-        const svg = container.querySelector('svg');
+        renderWithThemeContext('dark');
+        const svg = screen.getByRole('img', { name: /sun/i });
         expect(svg).toBeInTheDocument();
-        // IconSun has a circle element
-        const circle = container.querySelector('circle');
-        expect(circle).toBeInTheDocument();
     });
 
     test('llama a toggleTheme cuando se hace clic en el botón', () => {

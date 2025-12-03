@@ -1,0 +1,94 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Tests",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage"
+		},
+		{
+			"label": "Run All Tests with Coverage",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage"
+		},
+		{
+			"label": "Final Test Run",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage"
+		},
+		{
+			"label": "Test All",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage"
+		},
+		{
+			"label": "Final Tests",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage"
+		},
+		{
+			"label": "Complete Tests",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage"
+		},
+		{
+			"label": "Final All Tests",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage"
+		},
+		{
+			"label": "test",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage",
+			"group": "test"
+		},
+		{
+			"label": "test-final",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage",
+			"group": "test"
+		},
+		{
+			"label": "test-final2",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage",
+			"group": "test"
+		},
+		{
+			"label": "test-final3",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage",
+			"group": "test"
+		},
+		{
+			"label": "test-final4",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage",
+			"group": "test"
+		},
+		{
+			"label": "test-final5",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage",
+			"group": "test"
+		},
+		{
+			"label": "test-final6",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage",
+			"group": "test"
+		},
+		{
+			"label": "test-final7",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage",
+			"group": "test"
+		},
+		{
+			"label": "test-final8",
+			"type": "shell",
+			"command": "npm test -- --watchAll=false --coverage",
+			"group": "test"
+		}
+	]
+}

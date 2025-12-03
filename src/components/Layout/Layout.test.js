@@ -8,7 +8,7 @@ describe('Layout', () => {
 
     const renderWithRouter = () => {
         return render(
-            <BrowserRouter>
+            <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                 <Routes>
                     <Route path="/" element={<Layout />}>
                         <Route index element={<TestComponent />} />
@@ -38,9 +38,9 @@ describe('Layout', () => {
     });
 
     test('tiene la estructura correcta con Header y main', () => {
-        const { container } = renderWithRouter();
-        const header = container.querySelector('.app-header');
-        const main = container.querySelector('main');
+        renderWithRouter();
+        const header = screen.getByRole('banner');
+        const main = screen.getByRole('main');
 
         expect(header).toBeInTheDocument();
         expect(main).toBeInTheDocument();
